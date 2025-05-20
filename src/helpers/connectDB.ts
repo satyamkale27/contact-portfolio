@@ -9,3 +9,5 @@ const connectDb = async (dbUrl: string): Promise<void> => {
     process.exit(1); // Exit the process if unable to connect
   }
 };
+
+export default connectDb;
