@@ -1,7 +1,8 @@
-import { Request, Express } from "express";
+import { Request, Response } from "express";
 import Contact from "../models/contact.mongo";
 import asyncHandler from "../middleware/tryCatch";
 import { CustomError } from "../middleware/errors/CustomError";
+import { checkMessageExists } from "../helpers/utils";
 
 interface ContactRequestBody {
   fullName: string;
@@ -20,5 +21,20 @@ export const contactData = asyncHandler(
     if (!fullName || !email || !subject || !message) {
       throw new CustomError("All fields are required", 400);
     }
+
+    await checkMessageExists(email);
+
+    const contactPayload = new Contact({
+      fullName,
+      email,
+      subject,
+      message,
+    });
+
+    await contactPayload.save();
+
+    res
+      .status(201)
+      .json({ success: true, message: "message sent successfully" });
   }
 );
