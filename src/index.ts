@@ -9,7 +9,11 @@ import { errorMiddleware } from "./middleware/errors/errorMiddleware";
 import contactRouter from "./routes/contact.route";
 
 // Allowed origins for CORS
-const allowedOrigins = ["http://localhost:3000", "http://localhost:3001"];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "https://www.satyamkale.site",
+];
 
 // Initialize Express app
 const app = express();
